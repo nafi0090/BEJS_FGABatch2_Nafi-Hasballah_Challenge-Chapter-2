@@ -1,30 +1,30 @@
-let saldo = 500;
-
 class BankAccount {
-    constructor(amount, account){
-        this.amount = amount;
-        this.account = account;
+    constructor(balance){
+        this.balance = balance;
     }
 
-    deposit() {        
-        if (this.amount > 0) {
-            saldo += this.amount;
-            console.log( `Saldo berhasil ditambahkan sebesar ${this.amount}, saldo saat ini adalah sebesar ${saldo}`);
+    TambahSaldo(amount) {        
+        if (amount > 0) {
+            this.balance += amount;
+            console.log( `Saldo berhasil ditambahkan sebesar ${amount}, saldo saat ini adalah sebesar ${this.balance}`);
+        }else if (isNaN(amount)){
+            console.log( `Anda tidak memasukkan nominal apapun!`)
         } else {
             console.log( `Saldo gagal ditambahkan` )
-            }
-    }
-
-    withdraw() {
-        if (this.amount > 0) {
-            saldo -= this.amount;
-            console.log( `Saldo berhasil ditambahkan sebesar ${this.amount}, saldo saat ini adalah sebesar ${saldo}`);
-        } else {
-            console.log( `Saldo gagal ditambahkan`);
         }
     }
 
-    GetBalance() {
-        return this.amount 
+    KurangiSaldo(amount) {
+        if (amount < this.balance && amount > 0) {
+            this.balance -= amount;
+            console.log( `Penarikan sebesar ${amount} berhasil, saldo saat ini adalah sebesar ${this.balance}`);
+        } else if (isNaN(amount)){
+            console.log( `Anda tidak memasukkan nominal apapun!`)
+        }
+        else {
+            console.log( `Saldo anda tidak mencukupi`);
+        }
     }
 }
+
+export { BankAccount };

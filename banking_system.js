@@ -1,40 +1,47 @@
-let saldo = 0;
+import { CustomError } from "./Utils/CustomError.js";
+import { BankAccount } from "./bank_account.js";
 
-class BankAccount {
-    constructor(account,amount){
-        this.amount = amount;
-        this.account = account;
+class BankSystem extends BankAccount{
+    constructor(name, balance){
+        super(balance);
+        this.name = name;
     }
 
-    deposit() {        
-        if (this.amount > 0) {
-            saldo += this.amount;
-            console.log( `Saldo berhasil ditambahkan sebesar ${this.amount}, saldo saat ini adalah sebesar ${saldo}`);
-        } else {
-            console.log( `Saldo gagal ditambahkan` )
-            }
+    Deposit (){
+        let deposit = parseInt(window.prompt("Masukkan Angka"))
+
+        if (isNaN(deposit)) throw new CustomError('VN001', 'Deposit is NaN');
+        
+        this.TambahSaldo(deposit)
+    }
+    
+    Withdraw  (){
+        let withdraw = parseInt(window.prompt("Masukkan Angka"))
+
+        if (isNaN(withdraw)) throw new CustomError('VN001', 'withdraw is NaN');
+        
+        this.KurangiSaldo(withdraw)
     }
 
-    withdraw() {
-        if (this.amount > 0) {
-            saldo -= this.amount;
-            console.log( `Saldo berhasil diambil sebesar ${this.amount}, saldo saat ini adalah sebesar ${saldo}`);
-        } else {
-            console.log( `Saldo gagal diambil`);
-        }
-    }
-
-    GetBalance() {
-        return this.amount 
+    GetBalance(){
+        return this.balance
     }
 }
 
-let account1 = new BankAccount("Jordi", 1000);
+let account1 = new BankSystem("Jordi", 1000);
 
-console.log(account1.GetBalance());
+function main(){
+    console.log(account1.GetBalance())
+    setTimeout(() => {
+        try {
+            account1.Deposit()
+            account1.Withdraw()
+            console.log(account1.GetBalance())
+        } catch (error) {
+            console.log(error.name, error.message);
+        }
+    }, 1000);
+    console.log(account1.GetBalance())
+}
 
-setTimeout(() => {
-    account1.deposit()
-}, 1000);
-
-account1.withdraw()
+main()
