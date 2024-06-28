@@ -31,17 +31,14 @@ class BankSystem extends BankAccount{
 let account1 = new BankSystem("Jordi", 1000);
 
 function main(){
-    console.log(account1.GetBalance())
     setTimeout(() => {
         try {
             account1.Deposit()
             account1.Withdraw()
-            console.log(account1.GetBalance())
         } catch (error) {
             console.log(error.name, error.message);
         }
     }, 1000);
-    console.log(account1.GetBalance())
 }
 
 main()
